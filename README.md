@@ -1,5 +1,7 @@
 # Hook Plug
 
+[![Build Status](https://travis-ci.com/dunossauro/hook_plug.svg?branch=master)](https://travis-ci.com/dunossauro/hook_plug)
+
 Hook Plug is an extension for testing frameworks. This provides the possibility of decoupling hook responsibilities and extending it with plugins.
 
 
