@@ -9,3 +9,4 @@ def step_impl(context):
 @then('list tag files')
 def step_impl(context):
     assert context.tag_files
+    assert context.tagged

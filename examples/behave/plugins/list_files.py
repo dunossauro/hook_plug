@@ -9,4 +9,5 @@ class ListFiles:
 
     @tag_behavior
     def before_tag(self, context, tag):
-        context.tag_files = {'before_tag files': listdir()}
+        if tag == 'tagged_file':
+            context.tag_files = {'before_tag files': listdir()}

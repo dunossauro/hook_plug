@@ -1,7 +1,8 @@
 from plugins.list_files import ListFiles
+from plugins.tagged import Tagged
 from hook_plug import environment_hooks, register_hooks
 
-register_hooks(ListFiles())
+register_hooks(ListFiles(), Tagged())
 
 
 def before_scenario(context, scenario):
