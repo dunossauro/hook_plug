@@ -6,7 +6,7 @@
 Hook Plug is an extension for testing frameworks. This provides the possibility of decoupling hook responsibilities and extending it with plugins.
 
 
-## [Behave example](.examples/behave)
+## [Behave example](./examples/behave)
 
 environment.py
 ```Python
