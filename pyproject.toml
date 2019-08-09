@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "hook_plug"
-version = "0.0.1"
+version = "0.1.0"
 description = "Hook Plug is an extension for testing frameworks. This provides the possibility of decoupling hook responsibilities and extending it with plugins."
 authors = ["dunossauro <mendesxeduardo@gmail.com>"]
 license = "MIT"
+include = ["README.md"]
 
 [tool.poetry.dependencies]
 python = "^3.5"
