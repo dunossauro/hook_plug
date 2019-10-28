@@ -50,7 +50,7 @@ Using `hook plug` you could write your modules in plugins and registers format i
 environment.py
 
 ```Python
-from plugins import ListFiles, Browser_stuff  # my plugin
+from plugins import ListFiles, Browser_stuff  # my plugins
 from hook_plug import environment_hooks, register_hooks
 
 register_hooks(ListFiles(), Browser_stuff())
@@ -86,8 +86,8 @@ class Browser_stuff:
     @tag_behavior
      def before_all(self, context):
         if _check_selenium_grid(context.config.userdata.get('SELENIUM_GRID')):
-        	context.browser = webdriver.Firefox()
-         context.browser = None
+            context.browser = webdriver.Firefox()
+        context.browser = None
         context.url_prefix = 'https'
 
     @tag_behavior
@@ -109,3 +109,74 @@ def get_url(context):
 ```
 
 That's it, all the complexity of the module and big things that can be implemented in more than one project or pollute your configuration file can become plugins and live totally uncoupled from your project. This is the idea of `hook plug`
+
+
+## How to use hook plug?
+
+### Hooks
+Unfortunately you will need to place the hook_plug object on all hooks of your project.
+
+```Python
+from hook_plug import environment_hooks
+
+
+def before_all(context):
+    environment_hooks.hook.before_all(context=context)
+
+
+def after_all(context):
+    environment_hooks.hook.after_all(context=context)
+
+
+def before_feature(context, feature):
+    environment_hooks.hook.before_feature(context=context, feature=feature)
+
+
+def after_feature(context, feature):
+    environment_hooks.hook.after_feature(context=context, feature=feature)
+
+
+def before_scenario(context, scenario):
+    environment_hooks.hook.before_scenario(context=context, scenario=scenario)
+
+
+def after_scenario(context, scenario):
+    environment_hooks.hook.after_scenario(context=context, scenario=scenario)
+
+
+def before_step(context, step):
+    environment_hooks.hook.before_step(context=context, step=step)
+
+
+def after_step(context, step):
+    environment_hooks.hook.after_step(context=context, step=step)
+
+
+def before_tag(context, tag):
+    environment_hooks.hook.before_tag(context=context, tag=tag)
+
+
+def after_tag(context, tag):
+    environment_hooks.hook.after_tag(context=context, tag=tag)
+```
+
+This snippet is the smallest case, but even with simplicity applied. Is the good case, because you don't need define nothing in environment file and delegate all responsibilities to your plugins.
+
+
+### Radish
+
+Initially this plugin was designed to work with behave, but since radish is also a beautiful behavior-oriented development framework, it was one of my priorities to think about compatibility.
+
+#### Hooks
+
+Radish no has global context by default, like behave, but has the `world`. World, has the same effect, it was present on all scopes and if you need use this scope in your project you can call `world`
+
+```Python
+from radish import before, world
+from hook_plug import environment_hooks
+
+
+@before.each_scenario
+def before_scenario(scenario):
+    environment_hooks.hook.before_scenario(context=world, scenario=scenario)
+```
